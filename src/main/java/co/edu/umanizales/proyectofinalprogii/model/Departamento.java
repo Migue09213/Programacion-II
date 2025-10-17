@@ -15,5 +15,17 @@ public class Departamento {
     public int poblacion;
     public enum region{
         ORINOCO, PACIFICA, CARIBE, ANDINA, AMAZONICA
-    };
+    }
+
+    //------------------------
+
+
+    @Override
+    public String toString() {
+        return "Departamento{" +
+                "nombre='" + nombre + '\'' +
+                ", id_dep='" + id_dep + '\'' +
+                ", poblacion=" + poblacion +
+                '}';
+    }
 } //fin clase Departamento

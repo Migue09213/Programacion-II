@@ -20,22 +20,23 @@ public class lstDepartamento {
     public int tam;
     //------------------------
 
-    public lstDepartamento() {
+    public lstDepartamento() throws IOException, URISyntaxException {
         cab = null;
         ult = null;
         tam = 0;
+        cargarDepartamentos();
     }
 
     //------------------------
 
-    @Value("${departamentos_filename}")
-    private String departamentosFileName;
+    private String departamentosFileName = "C:\\Users\\danie\\IdeaProjects\\Proyecto final Prog II\\src\\main\\resources\\codigos_departamentos.csv";
 
-    public void cargarDepartamentos() throws IOException, URISyntaxException {
+    private void cargarDepartamentos() throws IOException, URISyntaxException {
+        String codigo, nombre;
+        int poblacion=0;
+        String[] parts;
 
-        Path filepath = Paths.get(ClassLoader.getSystemResource(departamentosFileName).toURI());
-
-        try (BufferedReader br = new BufferedReader(new FileReader(filepath.toFile()))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(departamentosFileName))) {
 
             String line;
             boolean firstLine = true;
@@ -46,9 +47,7 @@ public class lstDepartamento {
                     continue;
                 }
 
-                String[] parts = line.split(",");
-                String codigo, nombre;
-                int poblacion;
+                parts = line.split(",");
 
                 if (parts.length >= 3) {
                     codigo = parts[0];
@@ -62,10 +61,6 @@ public class lstDepartamento {
 
                 }
             }
-
-            System.out.println("> Buscando Archivo: " + "|" + departamentosFileName + "|");
-            System.out.println("> Archivo Cargado con éxito, " + this.getTam() + " Elementos encontrados");
-
         } catch (IOException e) {
             e.printStackTrace();
             throw e;
@@ -95,6 +90,22 @@ public class lstDepartamento {
 
     //----------------------------
 
+    public String mostrarTodo(){
+
+        String resultado_cadena = "";
+        if (this.estaVacio()) {
+            return resultado_cadena; //retorna la lista vacía
+        }else{
+            c_nodo_LD temp;
+            temp = this.getCab();
+
+            while (temp != null) { //iniciar el ciclo de recorrido
+                resultado_cadena = resultado_cadena + temp.dato + "\n";
+                temp = temp.getSig();
+            }
+            return resultado_cadena;
+        }//fin else
+    }//fin metodo mostrar
 
 
 }
