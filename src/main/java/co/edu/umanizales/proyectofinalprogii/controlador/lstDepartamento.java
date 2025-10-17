@@ -3,14 +3,10 @@ package co.edu.umanizales.proyectofinalprogii.controlador;
 import co.edu.umanizales.proyectofinalprogii.model.Departamento;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Getter
 @Setter
@@ -18,9 +14,10 @@ public class lstDepartamento {
     public c_nodo_LD cab;
     public c_nodo_LD ult;
     public int tam;
+
     //------------------------
 
-    public lstDepartamento() throws IOException, URISyntaxException {
+    public lstDepartamento() throws IOException {
         cab = null;
         ult = null;
         tam = 0;
@@ -31,7 +28,7 @@ public class lstDepartamento {
 
     private String departamentosFileName = "C:\\Users\\danie\\IdeaProjects\\Proyecto final Prog II\\src\\main\\resources\\codigos_departamentos.csv";
 
-    private void cargarDepartamentos() throws IOException, URISyntaxException {
+    private void cargarDepartamentos() throws IOException {
         String codigo, nombre;
         int poblacion=0;
         String[] parts;
@@ -57,7 +54,7 @@ public class lstDepartamento {
                     }
                     poblacion = Integer.parseInt(parts[2]);
 
-                    this.agregarFinal(new c_nodo_LD(new Departamento(nombre, codigo, poblacion)));
+                    this.agregarFinal(new c_nodo_LD(new Departamento(codigo, nombre, poblacion)));
 
                 }
             }
@@ -106,6 +103,5 @@ public class lstDepartamento {
             return resultado_cadena;
         }//fin else
     }//fin metodo mostrar
-
 
 }

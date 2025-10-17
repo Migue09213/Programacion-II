@@ -13,4 +13,15 @@ public class Indicador {
     public String nombre;
     public String id_indicador;
     public int valor;
-}
+
+    //---------------------
+
+    @Override
+    public String toString() {
+        return "Indicador{" +
+                "nombre='" + nombre + '\'' +
+                ", id_indicador='" + id_indicador + '\'' +
+                ", valor=" + valor +
+                '}';
+    }
+}//fin de la clase Indicador

@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 @SpringBootApplication
 public class ProyectoFinalProgIiApplication {
 
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) throws IOException {
         SpringApplication.run(ProyectoFinalProgIiApplication.class, args);
         lstDepartamento obj_lst_dep = new lstDepartamento();
         System.out.println(obj_lst_dep.mostrarTodo());
