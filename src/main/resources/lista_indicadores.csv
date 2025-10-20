@@ -1,0 +1,31 @@
+Código del Indicador,Nombre del Indicador,Rango de Valores
+INDI-01-TD,Tasa de desempleo,0 - 100 (%)
+INDI-02-LD,Línea de pobreza monetaria,0 - 100 (%)
+INDI-03-ÍD,Índice de cobertura forestal,0 - 100 (%)
+INDI-04-PA,Polución aérea,0 - 200 µg/m³
+INDI-05-ÍD,Índice de seguridad ciudadana,0 - 100 (%)
+INDI-06-ND,Número de denuncias por violencia de género,0 - 10000 casos
+INDI-07-CE,Cobertura en salud (%),0 - 100 (%)
+INDI-08-TD,Tasa de desnutrición infantil,0 - 100 (%)
+INDI-09-DH,Déficit habitacional (%),0 - 100 (%)
+INDI-10-ND,Número de desplazados internos,0 - 100000 personas
+INDI-11-ÍD,Índice de percepción de corrupción,0 - 100 (%)
+INDI-12-TD,Tasa de incautaciones de droga,0 - 5000 incautaciones
+INDI-13-KD,Kilómetros de vías pavimentadas,0 - 10000 km
+INDI-14-RP,Resultados promedio en pruebas Saber,0 - 500 puntos
+INDI-15-TD,Tasa de deserción escolar,0 - 100 (%)
+INDI-16-PD,Porcentaje de analfabetismo,0 - 100 (%)
+INDI-17-PD,Porcentaje de hogares con acceso a internet,0 - 100 (%)
+INDI-18-TD,Tasa de homicidios por cada 100.000 habitantes,0 - 200
+INDI-19-CD,Coeficiente de Gini (desigualdad),0 - 1
+INDI-20-PD,Porcentaje de hogares con inseguridad alimentaria,0 - 100 (%)
+INDI-21-ND,Nivel de contaminación de suelos (metales pesados),0 - 500 mg/kg
+INDI-22-ND,Número de especies amenazadas,0 - 1000 especies
+INDI-23-HA,Hectáreas afectadas por minería ilegal,0 - 50000 ha
+INDI-24-CD,Cobertura de agua potable (%),0 - 100 (%)
+INDI-25-ND,Número de eventos climáticos extremos anuales,0 - 100 eventos
+INDI-26-PD,Porcentaje de viviendas con hacinamiento,0 - 100 (%)
+INDI-27-TD,Tasa de reciclaje de residuos sólidos,0 - 100 (%)
+INDI-28-PD,Porcentaje de niños en situación de trabajo infantil,0 - 100 (%)
+INDI-29-CD,Cobertura de transporte público (%),0 - 100 (%)
+INDI-30-LD,Línea de pobreza extrema,0 - 100 (%)

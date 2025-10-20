@@ -19,8 +19,8 @@ public class Indicador {
     @Override
     public String toString() {
         return "Indicador{" +
-                "nombre='" + nombre + '\'' +
-                ", id_indicador='" + id_indicador + '\'' +
+                "nombre='" + id_indicador + '\'' +
+                ", id_indicador='" + nombre + '\'' +
                 ", valor=" + valor +
                 '}';
     }

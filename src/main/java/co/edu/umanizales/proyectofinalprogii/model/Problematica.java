@@ -24,6 +24,14 @@ public class Problematica {
         this.palabrasClave = palabrasClave;
     }
 
+    public Problematica(String tipo_problema, String id_problema, String nombreProb, String palabrasClave, lstIndicador indicador) {
+        this.tipo_problema = tipo_problema;
+        this.id_problema = id_problema;
+        this.nombreProb = nombreProb;
+        this.palabrasClave = palabrasClave;
+        this.indicador = indicador;
+    }
+
     //--------------------------
 
     @Override
@@ -33,7 +41,7 @@ public class Problematica {
                 ", id_problema='" + id_problema + '\'' +
                 ", nombreProb='" + nombreProb + '\'' +
                 ", palabrasClave='" + palabrasClave + '\'' +
-                ", indicador=" + indicador +
+                ", indicador=" + indicador.mostrarTodo() +
                 '}';
     }
 }

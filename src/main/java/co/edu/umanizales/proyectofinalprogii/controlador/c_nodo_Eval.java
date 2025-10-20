@@ -1,6 +1,6 @@
 package co.edu.umanizales.proyectofinalprogii.controlador;
 
-import co.edu.umanizales.proyectofinalprogii.model.Problematica;
+import co.edu.umanizales.proyectofinalprogii.model.Evaluador;
 import lombok.Getter;
 import lombok.Setter;
 

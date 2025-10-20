@@ -1,6 +1,5 @@
 package co.edu.umanizales.proyectofinalprogii.controlador;
 
-import co.edu.umanizales.proyectofinalprogii.model.Departamento;
 import co.edu.umanizales.proyectofinalprogii.model.Indicador;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,17 +21,16 @@ public class lstIndicador {
         cab = null;
         ult = null;
         tam = 0;
-        cargarIndicadores();
     }
 
     //------------------------
 
     private String indicadoresFileName = "C:\\Users\\danie\\IdeaProjects\\Proyecto final Prog II\\src\\main\\resources\\lista_indicadores.csv";
 
-    private void cargarIndicadores() throws IOException {
-        String codigo, nombre;
-        int valor=0;
+    public void cargarIndicadores() throws IOException {
+        String codigo, nombre, valor;
         String[] parts;
+        int valorInt;
 
         try (BufferedReader br = new BufferedReader(new FileReader(indicadoresFileName))) {
 
@@ -51,11 +49,12 @@ public class lstIndicador {
                     codigo = parts[0];
                     nombre = parts[1];
                     if (parts[2] == null) {
-                        System.out.println("no existe población en el departamento");
+                        System.out.println("no existen valores para el indicador");
                     }
-                    valor = Integer.parseInt(parts[2]);
+                    valor = parts[2].replaceAll("[^0-9]", "");
+                    valorInt = Integer.parseInt(valor);
 
-                    this.agregarFinal(new c_nodo_LI(new Indicador(codigo, nombre, valor)));
+                    this.agregarFinal(new c_nodo_LI(new Indicador(codigo, nombre, valorInt)));
 
                 }
             }

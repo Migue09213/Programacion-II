@@ -28,7 +28,7 @@ public class lstDepartamento {
 
     private String departamentosFileName = "C:\\Users\\danie\\IdeaProjects\\Proyecto final Prog II\\src\\main\\resources\\codigos_departamentos.csv";
 
-    private void cargarDepartamentos() throws IOException {
+    public void cargarDepartamentos() throws IOException {
         String codigo, nombre;
         int poblacion=0;
         String[] parts;
@@ -104,4 +104,42 @@ public class lstDepartamento {
         }//fin else
     }//fin metodo mostrar
 
+    public String mostrarPosicion(int pos) {
+        int cont = 0;
+        String r_cad = "";
+        if ((pos <= 0) || (pos > this.getTam())) {
+            return "Error en la posicion";
+        }// fin del si para las posiciones
+        else {
+            if (!this.estaVacio()) {  // lista diferente vacio
+                cont = 1;
+                c_nodo_LD temp = this.getCab();
+                while (cont != pos) {
+                    cont++;
+                    temp = temp.getSig();
+                }// fin del mientras para el contador
+                r_cad = temp.dato.toString();
+            }// fin si de la lista tiene elementos
+            return r_cad;
+        }// fin del sino para validar la lista
+    }// fin de mostrar con posicion
+
+    public Departamento mostrarPosicionObj(int pos) {
+        int cont = 0;
+        c_nodo_LD temp = null;
+        if ((pos <= 0) || (pos > this.getTam())) {
+            return null;
+        }// fin del si para las posiciones
+        else {
+            if (!this.estaVacio()) {  // lista diferente vacio
+                cont = 1;
+                temp = this.getCab();
+                while (cont != pos) {
+                    cont++;
+                    temp = temp.getSig();
+                }// fin del mientras para el contador
+            }// fin si de la lista tiene elementos
+            return temp.dato;
+        }// fin del sino para validar la lista
+    }// fin de mostrar con posicion
 }
