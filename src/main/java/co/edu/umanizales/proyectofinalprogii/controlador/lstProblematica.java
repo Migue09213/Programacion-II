@@ -1,6 +1,7 @@
 package co.edu.umanizales.proyectofinalprogii.controlador;
 
 import co.edu.umanizales.proyectofinalprogii.model.Departamento;
+import co.edu.umanizales.proyectofinalprogii.model.Indicador;
 import co.edu.umanizales.proyectofinalprogii.model.Problematica;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,8 @@ import lombok.Setter;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import static co.edu.umanizales.proyectofinalprogii.ProyectoFinalProgIiApplication.indicadores;
 
 @Getter
 @Setter
@@ -29,6 +32,30 @@ public class lstProblematica {
 
     private String problematicasFileName = "C:\\Users\\danie\\IdeaProjects\\Proyecto final Prog II\\src\\main\\resources\\lista_problematicas.csv";
 
+
+    private lstIndicador generarIndicador() throws IOException {
+        c_nodo_LI temp = indicadores.cab;
+        int CantDatos = 0;
+        while (CantDatos == 0 ){
+            CantDatos = (int) (Math.random()*5);
+        }
+        lstIndicador lstTemp = new lstIndicador();
+        int cad = 1;
+        while (cad < CantDatos){
+            int datoObjetivo = (int) (Math.random()*30);
+            int  pos = 1;
+            temp = indicadores.cab;
+            while (pos < datoObjetivo){
+                temp = temp.sig;
+                pos++;
+            }
+            cad++;
+            lstTemp.agregarFinal(new c_nodo_LI(temp.dato));
+        }
+        return lstTemp;
+    }
+
+
     public void cargarProblematicas() throws IOException {
         String codigo, nombre, tipo, palabras;
         String[] parts;
@@ -49,13 +76,14 @@ public class lstProblematica {
                 if (parts.length >= 3) {
                     codigo = parts[0];
                     nombre = parts[1];
-                    if (parts[2] == null) {
-                        System.out.println("no existe población en el departamento");
-                    }
                     tipo = (parts[2]);
                     palabras = parts[3];
 
-                    this.agregarFinal(new c_nodo_LP(new Problematica(codigo, nombre, tipo, palabras)));
+                    // llamar un metedo para caRGAR indicadores de problrnataica
+
+
+                    this.agregarFinal(new c_nodo_LP(new Problematica(codigo, nombre, tipo, palabras,
+                            generarIndicador())));
 
                 }
             }
@@ -104,4 +132,5 @@ public class lstProblematica {
             return resultado_cadena;
         }//fin else
     }//fin metodo mostrar
+
 }
