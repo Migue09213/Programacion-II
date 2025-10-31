@@ -133,4 +133,23 @@ public class lstProblematica {
         }//fin else
     }//fin metodo mostrar
 
+    public Problematica mostrarPosicionObj(int pos) {
+        int cont = 0;
+        c_nodo_LP temp = null;
+        if ((pos <= 0) || (pos > this.getTam())) {
+            return null;
+        }// fin del si para las posiciones
+        else {
+            if (!this.estaVacio()) {  // lista diferente vacio
+                cont = 1;
+                temp = this.getCab();
+                while (cont != pos) {
+                    cont++;
+                    temp = temp.getSig();
+                }// fin del mientras para el contador
+            }// fin si de la lista tiene elementos
+            return temp.dato;
+        }// fin del sino para validar la lista
+    }// fin de mostrar con posicion
+
 }
