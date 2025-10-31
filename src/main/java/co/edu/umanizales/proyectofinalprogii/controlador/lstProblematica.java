@@ -79,7 +79,7 @@ public class lstProblematica {
                     tipo = (parts[2]);
                     palabras = parts[3];
 
-                    // llamar un metedo para cargar indicadores de problrnataica
+                    // llamar un metedo para caRGAR indicadores de problrnataica
 
 
                     this.agregarFinal(new c_nodo_LP(new Problematica(codigo, nombre, tipo, palabras,
@@ -132,24 +132,5 @@ public class lstProblematica {
             return resultado_cadena;
         }//fin else
     }//fin metodo mostrar
-
-    public Problematica mostrarPosicionObj(int pos) {
-        int cont = 0;
-        c_nodo_LP temp = null;
-        if ((pos <= 0) || (pos > this.getTam())) {
-            return null;
-        }// fin del si para las posiciones
-        else {
-            if (!this.estaVacio()) {  // lista diferente vacio
-                cont = 1;
-                temp = this.getCab();
-                while (cont != pos) {
-                    cont++;
-                    temp = temp.getSig();
-                }// fin del mientras para el contador
-            }// fin si de la lista tiene elementos
-            return temp.dato;
-        }// fin del sino para validar la lista
-    }// fin de mostrar con posicion
 
 }
