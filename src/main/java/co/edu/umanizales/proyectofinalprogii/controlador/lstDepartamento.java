@@ -1,6 +1,7 @@
 package co.edu.umanizales.proyectofinalprogii.controlador;
 
 import co.edu.umanizales.proyectofinalprogii.model.Departamento;
+import co.edu.umanizales.proyectofinalprogii.model.Indicador;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -124,6 +125,8 @@ public class lstDepartamento {
         }// fin del sino para validar la lista
     }// fin de mostrar con posicion
 
+    //---------------------------------
+
     public Departamento mostrarPosicionObj(int pos) {
         int cont = 0;
         c_nodo_LD temp = null;
@@ -142,4 +145,29 @@ public class lstDepartamento {
             return temp.dato;
         }// fin del sino para validar la lista
     }// fin de mostrar con posicion
+
+    //-------------------------------
+
+    public Departamento sacarUltimoDato () {
+        c_nodo_LD temp = this.getCab();
+        Departamento depa = this.ult.dato;
+        while (temp.sig != this.ult) {
+            temp = temp.sig;
+        }
+        tam--;
+        this.ult = temp;
+        temp.sig = null;
+        return depa;
+    }
+
+    //--------------------------------
+
+    public Departamento sacarPrimero() {
+        c_nodo_LD temp = this.getCab();
+        Departamento depa = temp.dato;
+        this.cab = temp.sig;
+        temp = null;
+        tam--;
+        return depa;
+    }
 }

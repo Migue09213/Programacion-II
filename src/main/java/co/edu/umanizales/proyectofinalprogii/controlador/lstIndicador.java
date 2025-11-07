@@ -103,4 +103,29 @@ public class lstIndicador {
             return resultado_cadena;
         }//fin else
     }//fin metodo mostrarTodo
+
+    //------------------------------
+
+    public Indicador sacarUltimoDato () {
+        c_nodo_LI temp = this.getCab();
+        Indicador indi = this.ult.dato;
+        while (temp.sig != this.ult) {
+            temp = temp.sig;
+        }
+        tam--;
+        this.ult = temp;
+        temp.sig = null;
+        return indi;
+    }
+
+    //-------------------------------
+
+    public Indicador sacarPrimero() {
+        c_nodo_LI temp = this.getCab();
+        Indicador indi = temp.dato;
+        this.cab = temp.sig;
+        temp = null;
+        tam --;
+        return indi;
+    }
 }

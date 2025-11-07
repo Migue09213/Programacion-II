@@ -1,6 +1,5 @@
 package co.edu.umanizales.proyectofinalprogii.controlador;
 
-import co.edu.umanizales.proyectofinalprogii.model.Departamento;
 import co.edu.umanizales.proyectofinalprogii.model.Indicador;
 import co.edu.umanizales.proyectofinalprogii.model.Problematica;
 import lombok.Getter;
@@ -133,6 +132,8 @@ public class lstProblematica {
         }//fin else
     }//fin metodo mostrar
 
+    //-----------------------------
+
     public Problematica mostrarPosicionObj(int pos) {
         int cont = 0;
         c_nodo_LP temp = null;
@@ -152,4 +153,25 @@ public class lstProblematica {
         }// fin del sino para validar la lista
     }// fin de mostrar con posicion
 
+    //-----------------------------------
+
+    public Problematica sacarUltimoDato () {
+        c_nodo_LP temp = this.ult;
+        Problematica prob = temp.dato;
+        this.ult = temp.ant;
+        this.ult.sig = null;
+        temp = null; tam = tam--;
+        return prob;
+    }
+
+    //------------------------------------
+
+    public Problematica sacarPrimero() {
+        c_nodo_LP temp = this.getCab();
+        Problematica prob = temp.dato;
+        this.cab = temp.sig;
+        temp = null;
+        tam--;
+        return prob;
+    }
 }

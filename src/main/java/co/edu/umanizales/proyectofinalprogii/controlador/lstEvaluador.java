@@ -3,6 +3,7 @@ package co.edu.umanizales.proyectofinalprogii.controlador;
 import co.edu.umanizales.proyectofinalprogii.ProyectoFinalProgIiApplication;
 import co.edu.umanizales.proyectofinalprogii.model.Departamento;
 import co.edu.umanizales.proyectofinalprogii.model.Evaluador;
+import co.edu.umanizales.proyectofinalprogii.model.Indicador;
 import co.edu.umanizales.proyectofinalprogii.model.Problematica;
 import lombok.Getter;
 import lombok.Setter;
@@ -65,6 +66,8 @@ public class lstEvaluador {
         }
     }
 
+    //----------------------
+
     public String mostrarTodo(){
 
         String resultado_cadena = "";
@@ -82,4 +85,25 @@ public class lstEvaluador {
         }//fin else
     }//fin metodo mostrar
 
+    //-------------------------
+
+    public Evaluador sacarUltimoDato () {
+        c_nodo_Eval temp = this.ult;
+        Evaluador prob = temp.dato;
+        this.ult = temp.ant;
+        this.ult.sig = null;
+        temp = null; tam = tam--;
+        return prob;
+    }
+
+    //---------------------------
+
+    public Evaluador sacarPrimero() {
+        c_nodo_Eval temp = this.getCab();
+        Evaluador eval = temp.dato;
+        this.cab = temp.sig;
+        temp = null;
+        tam--;
+        return eval;
+    }
 }
