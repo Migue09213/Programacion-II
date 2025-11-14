@@ -1,9 +1,6 @@
 package co.edu.umanizales.proyectofinalprogii;
 
-import co.edu.umanizales.proyectofinalprogii.controlador.lstDepartamento;
-import co.edu.umanizales.proyectofinalprogii.controlador.lstEvaluador;
-import co.edu.umanizales.proyectofinalprogii.controlador.lstIndicador;
-import co.edu.umanizales.proyectofinalprogii.controlador.lstProblematica;
+import co.edu.umanizales.proyectofinalprogii.controlador.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -24,23 +21,21 @@ public class ProyectoFinalProgIiApplication {
 
         indicadores = new lstIndicador();
         indicadores.cargarIndicadores();
-        System.out.println(indicadores.mostrarTodo());
 
         problematica = new lstProblematica();
         problematica.cargarProblematicas();
-        System.out.println(problematica.mostrarTodo());
 
         departamento = new lstDepartamento();
         departamento.cargarDepartamentos();
-        System.out.println(departamento.mostrarTodo());
 
         Evaluador = new lstEvaluador();
         Evaluador.crearEvaluacion();
-        System.out.println(Evaluador.mostrarTodo());
 
 
         //-------------------------------------------------
 
+        GestorDatos obj_gestorDatos = new GestorDatos();
+        System.out.println(obj_gestorDatos.MostrarDepConProb());
 
 
     }

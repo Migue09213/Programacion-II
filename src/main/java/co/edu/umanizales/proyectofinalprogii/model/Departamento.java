@@ -10,8 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Departamento {
-    public String nombre;
     public String id_dep;
+    public String nombre;
     public int poblacion;
     public enum region{
         ORINOCO, PACIFICA, CARIBE, ANDINA, AMAZONICA
@@ -22,8 +22,8 @@ public class Departamento {
     @Override
     public String toString() {
         return "Departamento{" +
-                "nombre='" + nombre + '\'' +
-                ", id_dep='" + id_dep + '\'' +
+                "ID='" + id_dep + '\'' +
+                ", nombre='" + nombre + '\'' +
                 ", poblacion=" + poblacion +
                 '}';
     }

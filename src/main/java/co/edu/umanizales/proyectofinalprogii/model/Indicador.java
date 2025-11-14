@@ -1,26 +1,31 @@
 package co.edu.umanizales.proyectofinalprogii.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Indicador {
-    public String nombre;
     public String id_indicador;
+    public String nombre;
     public int valor;
+
+    //---------------------
+
+    public Indicador (String id_indicador,String nombre, int valor) {
+        this.id_indicador = id_indicador;
+        this.nombre = nombre;
+        this.valor = valor;
+    }
+
 
     //---------------------
 
     @Override
     public String toString() {
         return "Indicador{" +
-                "nombre='" + id_indicador + '\'' +
-                ", id_indicador='" + nombre + '\'' +
+                "ID='" + id_indicador + '\'' +
+                ", Nombre='" + nombre + '\'' +
                 ", valor=" + valor +
                 '}';
     }
