@@ -33,7 +33,7 @@ public class lstProblematica {
 
 
     private lstIndicador generarIndicador() throws IOException {
-        c_nodo_LI temp = indicadores.cab;
+        c_nodo_LI temp;
         int CantDatos = 0;
         while (CantDatos == 0 ){
             CantDatos = (int) (Math.random()*5);
@@ -62,13 +62,8 @@ public class lstProblematica {
         try (BufferedReader br = new BufferedReader(new FileReader(problematicasFileName))) {
 
             String line;
-            boolean firstLine = true;
 
             while ((line = br.readLine()) != null) {
-                if (firstLine) {
-                    firstLine = false;
-                    continue;
-                }
 
                 parts = line.split(",");
 
@@ -137,7 +132,7 @@ public class lstProblematica {
     public Problematica mostrarPosicionObj(int pos) {
         int cont = 0;
         c_nodo_LP temp = null;
-        if ((pos <= 0) || (pos > this.getTam())) {
+        if ((pos <= 0) || (pos > this.getTam()) || (this.estaVacio())) {
             return null;
         }// fin del si para las posiciones
         else {

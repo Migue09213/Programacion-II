@@ -1,9 +1,7 @@
 package co.edu.umanizales.proyectofinalprogii.controlador;
 
 import co.edu.umanizales.proyectofinalprogii.ProyectoFinalProgIiApplication;
-import co.edu.umanizales.proyectofinalprogii.model.Departamento;
 import co.edu.umanizales.proyectofinalprogii.model.Evaluador;
-import co.edu.umanizales.proyectofinalprogii.model.Indicador;
 import co.edu.umanizales.proyectofinalprogii.model.Problematica;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +34,7 @@ public class lstEvaluador {
         if (this.estaVacio()) {
             this.setCab(n_nodo);
             this.setUlt(n_nodo);
-        }else{
+        } else {
             c_nodo_Eval temp = this.getUlt();
             temp.setSig(n_nodo);
             this.setUlt(n_nodo);
@@ -48,15 +46,22 @@ public class lstEvaluador {
 
     public void crearEvaluacion() {
 
-        c_nodo_LD temp = ProyectoFinalProgIiApplication.departamento.getCab();
+        int pos = 0;
+        Problematica prob;
+        int valorImpacto;
+        c_nodo_LD temp;
+        temp = ProyectoFinalProgIiApplication.departamento.cab;
 
-        while(temp != null){
-            int cantProb = (int)(Math.random()*5)+5;
+        while (temp != null) {
 
-            for(int i = 1; i <= cantProb; i++){
-                int pos = (int)(Math.random()*ProyectoFinalProgIiApplication.problematica.tam);
-                Problematica prob = ProyectoFinalProgIiApplication.problematica.mostrarPosicionObj(pos);
-                int valorImpacto = (int)(Math.random()*100);
+            int cantProb = (int) (Math.random() * 5) + 5;
+            for (int i = 1; i <= cantProb; i++) {
+                do {
+                    pos = (int) (Math.random() * ProyectoFinalProgIiApplication.problematica.tam)+1;
+                    prob = ProyectoFinalProgIiApplication.problematica.mostrarPosicionObj(pos);
+                } while (buscar(temp.dato.id_dep, prob.id_problema));
+
+                valorImpacto = (int) (Math.random() * 100);
 
                 Evaluador ObjEvaluador = new Evaluador(temp.dato, prob, valorImpacto);
 
@@ -68,12 +73,12 @@ public class lstEvaluador {
 
     //----------------------
 
-    public String mostrarTodo(){
+    public String mostrarTodo() {
 
         String resultado_cadena = "";
         if (this.estaVacio()) {
             return resultado_cadena; //retorna la lista vacía
-        }else{
+        } else {
             c_nodo_Eval temp;
             temp = this.getCab();
 
@@ -87,12 +92,13 @@ public class lstEvaluador {
 
     //-------------------------
 
-    public Evaluador sacarUltimoDato () {
+    public Evaluador sacarUltimoDato() {
         c_nodo_Eval temp = this.ult;
         Evaluador prob = temp.dato;
         this.ult = temp.ant;
         this.ult.sig = null;
-        temp = null; tam = tam--;
+        temp = null;
+        tam = tam--;
         return prob;
     }
 
@@ -106,4 +112,24 @@ public class lstEvaluador {
         tam--;
         return eval;
     }
+
+    //-----------------------------
+
+    public boolean buscar(String idDepartamento, String idProblema) {
+        c_nodo_Eval temp;
+        int pos;
+        pos = 0;
+        temp = this.cab;
+        boolean res = false;
+        while ((temp != null) &&
+                (!idDepartamento.equalsIgnoreCase(temp.dato.getDpto().id_dep)) &&
+                (!idProblema.equalsIgnoreCase(temp.dato.getProblema().id_problema))) {
+            temp = temp.sig;
+            pos++;
+        }
+        if (pos <= this.getTam()) {
+            res = true;
+        }
+        return res;
+    }// fin del metodo de buscar un elemento
 }
