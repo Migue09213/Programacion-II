@@ -24,7 +24,6 @@ public class lstProblematica {
         cab = null;
         ult = null;
         tam = 0;
-        cargarProblematicas();
     }
 
     //---------------------
@@ -41,7 +40,7 @@ public class lstProblematica {
         lstIndicador lstTemp = new lstIndicador();
         int cad = 1;
         while (cad < CantDatos){
-            int datoObjetivo = (int) (Math.random()*30);
+            int datoObjetivo = (int) (Math.random()*5);
             int  pos = 1;
             temp = indicadores.cab;
             while (pos < datoObjetivo){
@@ -73,7 +72,7 @@ public class lstProblematica {
                     tipo = (parts[2]);
                     palabras = parts[3];
 
-                    // llamar un metedo para caRGAR indicadores de problrnataica
+                    // llamar un metedo para cargar indicadores de problrnataica
 
 
                     this.agregarFinal(new c_nodo_LP(new Problematica(codigo, nombre, tipo, palabras,
@@ -102,6 +101,7 @@ public class lstProblematica {
             this.setUlt(n_nodo);
         }else{
             c_nodo_LP temp = this.getUlt();
+            n_nodo.ant = temp;
             temp.setSig(n_nodo);
             this.setUlt(n_nodo);
         }

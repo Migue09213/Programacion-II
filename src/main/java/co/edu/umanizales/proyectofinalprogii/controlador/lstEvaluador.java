@@ -36,6 +36,7 @@ public class lstEvaluador {
             this.setUlt(n_nodo);
         } else {
             c_nodo_Eval temp = this.getUlt();
+            n_nodo.ant = temp;
             temp.setSig(n_nodo);
             this.setUlt(n_nodo);
         }
@@ -54,12 +55,12 @@ public class lstEvaluador {
 
         while (temp != null) {
 
-            int cantProb = (int) (Math.random() * 5) + 5;
+            int cantProb = (int) (Math.random() * 5);
             for (int i = 1; i <= cantProb; i++) {
                 do {
-                    pos = (int) (Math.random() * ProyectoFinalProgIiApplication.problematica.tam)+1;
+                    pos = (int) (Math.random() * ProyectoFinalProgIiApplication.problematica.tam) + 1;
                     prob = ProyectoFinalProgIiApplication.problematica.mostrarPosicionObj(pos);
-                } while (buscar(temp.dato.id_dep, prob.id_problema));
+                } while (buscar(temp.dato.id_dep));
 
                 valorImpacto = (int) (Math.random() * 100);
 
@@ -115,15 +116,17 @@ public class lstEvaluador {
 
     //-----------------------------
 
-    public boolean buscar(String idDepartamento, String idProblema) {
+    public boolean buscar(String idDepartamento) {
         c_nodo_Eval temp;
         int pos;
         pos = 0;
         temp = this.cab;
         boolean res = false;
+        if (this.estaVacio()) {
+            return res;
+        }
         while ((temp != null) &&
-                (!idDepartamento.equalsIgnoreCase(temp.dato.getDpto().id_dep)) &&
-                (!idProblema.equalsIgnoreCase(temp.dato.getProblema().id_problema))) {
+                (!idDepartamento.equalsIgnoreCase(temp.dato.getDpto().id_dep)) ) {
             temp = temp.sig;
             pos++;
         }

@@ -22,7 +22,6 @@ public class lstDepartamento {
         cab = null;
         ult = null;
         tam = 0;
-        cargarDepartamentos();
     }
 
     //------------------------
