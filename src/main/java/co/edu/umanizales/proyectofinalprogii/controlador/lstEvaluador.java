@@ -47,27 +47,61 @@ public class lstEvaluador {
 
     public void crearEvaluacion() {
 
-        int pos = 0;
-        Problematica prob;
+        int pos;
+        Problematica prob = null;
         int valorImpacto;
         c_nodo_LD temp;
         temp = ProyectoFinalProgIiApplication.departamento.cab;
 
+        // Obtener el tamaño de la lista de problemáticas una sola vez
+        int tamProblematica = ProyectoFinalProgIiApplication.problematica.tam;
+
+        if (tamProblematica == 0) {
+            return; // No hay problemáticas para evaluar
+        }
+
         while (temp != null) {
 
-            int cantProb = (int) (Math.random() * 5);
+            // **++ El departamento actual (temp.dato) es único en cada iteración ++**
+
+            int cantProb = (int) (Math.random() * 5) + 5;
+
             for (int i = 1; i <= cantProb; i++) {
+
+                // **++ Control de Bucle Infinito y Unicidad ++**
+                int intentos = 0;
+                boolean encontradaUnica = false;
+
                 do {
-                    pos = (int) (Math.random() * ProyectoFinalProgIiApplication.problematica.tam) + 1;
+                    // Genera la posición en el rango [1, tam] (corrige el NPE)
+                    pos = (int)(Math.random() * tamProblematica) + 1;
                     prob = ProyectoFinalProgIiApplication.problematica.mostrarPosicionObj(pos);
-                } while (buscar(temp.dato.id_dep));
 
-                valorImpacto = (int) (Math.random() * 100);
+                    // 1. Verificación: Asegurarse de que el objeto no es nulo (seguridad).
+                    // 2. Unicidad: Asegurarse de que NO exista una evaluación previa.
+                    if (prob != null && !buscar(temp.dato.id_dep, prob.id_problema)) {
+                        encontradaUnica = true; // Se encontró una problemática única para este departamento.
+                    }
 
-                Evaluador ObjEvaluador = new Evaluador(temp.dato, prob, valorImpacto);
+                    intentos++;
 
-                this.agregarFinal(new c_nodo_Eval(ObjEvaluador));
+                    // Salir del do-while si se agotan los intentos (Protección contra bucle infinito)
+                    if (intentos > 100) {
+                        break;
+                    }
+
+                } while (!encontradaUnica); // Repetir mientras no se encuentre una problemática única.
+
+                // **++ Creación de la Evaluación SOLO si se encontró una Problemática Única ++**
+                if (encontradaUnica) {
+                    valorImpacto = (int) (Math.random() * 100);
+
+                    Evaluador ObjEvaluador = new Evaluador(temp.dato, prob, valorImpacto);
+
+                    this.agregarFinal(new c_nodo_Eval(ObjEvaluador));
+                }
             }
+
             temp = temp.sig;
         }
     }
@@ -116,7 +150,7 @@ public class lstEvaluador {
 
     //-----------------------------
 
-    public boolean buscar(String idDepartamento) {
+    public boolean buscar(String idDepartamento, String idProblematica) {
         c_nodo_Eval temp;
         int pos;
         pos = 0;
@@ -126,7 +160,8 @@ public class lstEvaluador {
             return res;
         }
         while ((temp != null) &&
-                (!idDepartamento.equalsIgnoreCase(temp.dato.getDpto().id_dep)) ) {
+                (!idDepartamento.equalsIgnoreCase(temp.dato.getDpto().id_dep)) &&
+                !idProblematica.equalsIgnoreCase(temp.dato.getProblema().id_problema)) {
             temp = temp.sig;
             pos++;
         }

@@ -1,6 +1,5 @@
 package co.edu.umanizales.proyectofinalprogii.controlador;
 
-import co.edu.umanizales.proyectofinalprogii.model.Indicador;
 import co.edu.umanizales.proyectofinalprogii.model.Problematica;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,12 +34,12 @@ public class lstProblematica {
         c_nodo_LI temp;
         int CantDatos = 0;
         while (CantDatos == 0 ){
-            CantDatos = (int) (Math.random()*5);
+            CantDatos = (int) (Math.random()*5) + 1;
         }
         lstIndicador lstTemp = new lstIndicador();
         int cad = 1;
         while (cad < CantDatos){
-            int datoObjetivo = (int) (Math.random()*5);
+            int datoObjetivo = (int) (Math.random()*30);
             int  pos = 1;
             temp = indicadores.cab;
             while (pos < datoObjetivo){

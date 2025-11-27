@@ -39,10 +39,6 @@ public class lstDepartamento {
             boolean firstLine = true;
 
             while ((line = br.readLine()) != null) {
-                if (firstLine) {
-                    firstLine = false;
-                    continue;
-                }
 
                 parts = line.split(",");
 
