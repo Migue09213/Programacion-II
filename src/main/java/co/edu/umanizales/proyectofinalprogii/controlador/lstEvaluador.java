@@ -46,9 +46,8 @@ public class lstEvaluador {
     //-----------------------
 
     public void crearEvaluacion() {
-
         int pos;
-        Problematica prob = null;
+        Problematica prob = null; // Inicializar para seguridad
         int valorImpacto;
         c_nodo_LD temp;
         temp = ProyectoFinalProgIiApplication.departamento.cab;
@@ -56,52 +55,55 @@ public class lstEvaluador {
         // Obtener el tamaño de la lista de problemáticas una sola vez
         int tamProblematica = ProyectoFinalProgIiApplication.problematica.tam;
 
-        if (tamProblematica == 0) {
-            return; // No hay problemáticas para evaluar
+        // Verificación: Asegurarse de que el departamento no sea null
+        if (tamProblematica == 0 || ProyectoFinalProgIiApplication.departamento == null) {
+            return;
         }
 
+        // El bucle while (temp != null) garantiza que el departamento no se repita
         while (temp != null) {
 
-            // **++ El departamento actual (temp.dato) es único en cada iteración ++**
-
             int cantProb = (int) (Math.random() * 5) + 5;
-
             for (int i = 1; i <= cantProb; i++) {
 
-                // **++ Control de Bucle Infinito y Unicidad ++**
                 int intentos = 0;
-                boolean encontradaUnica = false;
+                boolean existeDuplicado = true; // Asumir que existe hasta que se pruebe lo contrario
+                boolean exitoEncontrado = false; // Bandera para indicar si encontramos un valor único
 
-                do {
-                    // Genera la posición en el rango [1, tam] (corrige el NPE)
-                    pos = (int)(Math.random() * tamProblematica) + 1;
+                do{
+                    pos = (int) (Math.random() * tamProblematica) + 1;
                     prob = ProyectoFinalProgIiApplication.problematica.mostrarPosicionObj(pos);
 
-                    // 1. Verificación: Asegurarse de que el objeto no es nulo (seguridad).
-                    // 2. Unicidad: Asegurarse de que NO exista una evaluación previa.
-                    if (prob != null && !buscar(temp.dato.id_dep, prob.id_problema)) {
-                        encontradaUnica = true; // Se encontró una problemática única para este departamento.
+                    // Validación principal: Asegurar que la problemática exista y no sea un duplicado
+                    if (prob != null && !buscar(temp.dato.id_dep)) {
+                        existeDuplicado = false; // La combinación es ÚNICA
+                        exitoEncontrado = true; // Encontramos lo que buscábamos
+                    } else {
+                        existeDuplicado = true; // El valor sigue siendo un duplicado o es nulo
                     }
 
                     intentos++;
 
-                    // Salir del do-while si se agotan los intentos (Protección contra bucle infinito)
-                    if (intentos > 100) {
+                    if (intentos > 30){
+                        existeDuplicado = false; // Forzar la salida si se agotan los intentos
                         break;
                     }
 
-                } while (!encontradaUnica); // Repetir mientras no se encuentre una problemática única.
+                    // **++ CORRECCIÓN DE LA CONDICIÓN: Usar '!=' o '!' para la comparación ++**
+                } while(existeDuplicado); // Repetir mientras AÚN exista un duplicado
 
-                // **++ Creación de la Evaluación SOLO si se encontró una Problemática Única ++**
-                if (encontradaUnica) {
+                // **++ Crear Evaluación SOLO si se encontró una Problemática ÚNICA ++**
+                if (exitoEncontrado) {
                     valorImpacto = (int) (Math.random() * 100);
 
                     Evaluador ObjEvaluador = new Evaluador(temp.dato, prob, valorImpacto);
 
                     this.agregarFinal(new c_nodo_Eval(ObjEvaluador));
                 }
+                // Si el bucle terminó por `break;` (intentos agotados), simplemente no se crea la evaluación.
             }
 
+            // Esta línea es la que AVANZA el departamento, asegurando que no se repita el mismo
             temp = temp.sig;
         }
     }
@@ -150,24 +152,16 @@ public class lstEvaluador {
 
     //-----------------------------
 
-    public boolean buscar(String idDepartamento, String idProblematica) {
-        c_nodo_Eval temp;
-        int pos;
-        pos = 0;
-        temp = this.cab;
-        boolean res = false;
-        if (this.estaVacio()) {
-            return res;
-        }
-        while ((temp != null) &&
-                (!idDepartamento.equalsIgnoreCase(temp.dato.getDpto().id_dep)) &&
-                !idProblematica.equalsIgnoreCase(temp.dato.getProblema().id_problema)) {
+    public boolean buscar(String idDepartamento) {
+        c_nodo_Eval temp = this.cab;
+
+        while (temp != null) {
+            if (idDepartamento.equalsIgnoreCase(temp.dato.getDpto().id_dep)) {
+                return true;
+            }
             temp = temp.sig;
-            pos++;
         }
-        if (pos <= this.getTam()) {
-            res = true;
-        }
-        return res;
+        return false;
     }// fin del metodo de buscar un elemento
+
 }

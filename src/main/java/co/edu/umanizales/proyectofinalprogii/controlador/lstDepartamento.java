@@ -49,7 +49,6 @@ public class lstDepartamento {
                         System.out.println("no existe población en el departamento");
                     }
                     poblacion = Integer.parseInt(parts[2]);
-
                     this.agregarFinal(new c_nodo_LD(new Departamento(codigo, nombre, poblacion)));
 
                 }

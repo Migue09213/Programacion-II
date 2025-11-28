@@ -34,7 +34,7 @@ public class lstProblematica {
         c_nodo_LI temp;
         int CantDatos = 0;
         while (CantDatos == 0 ){
-            CantDatos = (int) (Math.random()*5) + 1;
+            CantDatos = (int) (Math.random()*5);
         }
         lstIndicador lstTemp = new lstIndicador();
         int cad = 1;
@@ -43,7 +43,7 @@ public class lstProblematica {
             int  pos = 1;
             temp = indicadores.cab;
             while (pos < datoObjetivo){
-                temp = temp.sig;
+             temp = temp.sig;
                 pos++;
             }
             cad++;
