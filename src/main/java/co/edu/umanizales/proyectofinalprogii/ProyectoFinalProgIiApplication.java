@@ -37,6 +37,7 @@ public class ProyectoFinalProgIiApplication {
         GestorDatos obj_gestorDatos = new GestorDatos();
         System.out.println(obj_gestorDatos.MostrarDepConProb());
         System.out.println(obj_gestorDatos.MostrarValoracionPorProb());
+        System.out.println(obj_gestorDatos.ImpactoTotalDepartamento());
 
 
     }

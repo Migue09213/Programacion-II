@@ -1,7 +1,7 @@
 package co.edu.umanizales.proyectofinalprogii.controlador;
 
-
 import co.edu.umanizales.proyectofinalprogii.ProyectoFinalProgIiApplication;
+import co.edu.umanizales.proyectofinalprogii.model.Indicador;
 
 import static co.edu.umanizales.proyectofinalprogii.ProyectoFinalProgIiApplication.*;
 
@@ -13,7 +13,7 @@ public class GestorDatos {
     }
 
     //------------------------
-        //Reportes Departamentales
+        //Reportes Departamentales:
 
     public String MostrarDepConProb() {
         c_nodo_LD tempD;
@@ -64,4 +64,54 @@ public class GestorDatos {
         return valoracionPorProb;
     }
 
+    public String ImpactoTotalDepartamento() {
+        c_nodo_LD tempD;
+        tempD = ProyectoFinalProgIiApplication.departamento.cab;
+        String impactoTotalDepartamento = "";
+
+        while (tempD != null) {
+            c_nodo_Eval tempE;
+            tempE = Evaluador.cab;
+            impactoTotalDepartamento = impactoTotalDepartamento + '\n' + "Departamento: " +
+                    tempD.dato.getNombre() + '\n';
+            try {
+
+                int valorImpactoTotalDepartamento;
+                valorImpactoTotalDepartamento = 0;
+
+                while (tempE != null) {
+                    if (tempE.dato.getDpto().getId_dep().equalsIgnoreCase(tempD.dato.id_dep)) {
+
+                        valorImpactoTotalDepartamento = valorImpactoTotalDepartamento +
+                                tempE.dato.valor_impacto;
+
+                        impactoTotalDepartamento = impactoTotalDepartamento +
+                                "Valor Impacto Total: " + valorImpactoTotalDepartamento + '\n';
+                    }
+                    tempE = tempE.sig;
+                } // fin While
+            }catch (NullPointerException e) {
+            }
+            tempD = tempD.sig;
+        }
+        return impactoTotalDepartamento;
+    }
+
+    //-------------------------
+        //Reportes de problemáticas Críticas:
+
+
+
+
+    //-------------------------
+        //Reportes de Indicadores Comunes:
+
+
+
+    //-------------------------
+        //Reportes de Palabras Clave:
+
+
+
+    //-------------------------
 }

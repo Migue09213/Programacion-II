@@ -164,4 +164,13 @@ public class lstEvaluador {
         return false;
     }// fin del metodo de buscar un elemento
 
+    public void ReporteProbCriticas() {
+        if (cab == null) {
+            System.out.println("No hay evaluaciones");
+            return;
+        }
+
+
+    }
+
 }

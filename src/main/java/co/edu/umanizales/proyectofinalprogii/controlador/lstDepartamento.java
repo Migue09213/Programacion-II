@@ -1,7 +1,6 @@
 package co.edu.umanizales.proyectofinalprogii.controlador;
 
 import co.edu.umanizales.proyectofinalprogii.model.Departamento;
-import co.edu.umanizales.proyectofinalprogii.model.Indicador;
 import lombok.Getter;
 import lombok.Setter;
 
