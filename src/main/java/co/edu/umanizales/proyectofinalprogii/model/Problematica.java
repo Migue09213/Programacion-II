@@ -15,7 +15,6 @@ public class Problematica {
 
     //--------------------------
 
-
     public Problematica() {
     }
 
@@ -46,4 +45,6 @@ public class Problematica {
                 ", indicador=" + indicador.mostrarTodo() +
                 '}';
     }
+
+
 }

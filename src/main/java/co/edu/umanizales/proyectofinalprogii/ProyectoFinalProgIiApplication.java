@@ -35,11 +35,42 @@ public class ProyectoFinalProgIiApplication {
         //-------------------------------------------------
 
         GestorDatos obj_gestorDatos = new GestorDatos();
+
+        //--------- * REPORTES DEPARTAMENTALES * ------------//
+
+        System.out.println("//*REPORTES DEPARTAMENTALES*//");
+
         System.out.println(obj_gestorDatos.MostrarDepConProb());
         System.out.println(obj_gestorDatos.MostrarValoracionPorProb());
         System.out.println(obj_gestorDatos.ImpactoTotalDepartamento());
 
+        System.out.println('\n' + "-------------------------------------------");
 
+        //--------- * REPORTES PROBLEMÁTICAS CRÍTICAS * ------------//
+
+        System.out.println("//*REPORTES PROBLEMATICAS CRITICAS*//");
+
+        System.out.println(obj_gestorDatos.MayorValorAcumuladoProblema());
+        System.out.println(obj_gestorDatos.listarDepartamentosPorImpacto());
+        System.out.println(obj_gestorDatos.MostrarValoracionPorProb());
+
+        System.out.println('\n' + "-------------------------------------------");
+
+        //--------- * REPORTES INDICADORES COMUNES * ----------//
+
+        System.out.println("//*REPORTES INDICADORES COMUNES*//");
+
+        System.out.println(obj_gestorDatos.identificarIndicadoresComunes());
+
+        System.out.println('\n' + "-------------------------------------------");
+
+        //--------- * REPORTES PALABRAS CLAVE * -------------//
+
+        System.out.println("//*REPORTES PALABRAS CLAVE*//");
+
+        System.out.println(obj_gestorDatos.AnalisisFrecuenciaPalabrasClave());
+
+        System.out.println('\n' + "-------------------------------------------" + '\n');
     }
 
 }
