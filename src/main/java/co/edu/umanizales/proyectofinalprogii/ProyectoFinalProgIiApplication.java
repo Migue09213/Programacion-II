@@ -52,7 +52,7 @@ public class ProyectoFinalProgIiApplication {
 
         System.out.println(obj_gestorDatos.MayorValorAcumuladoProblema());
         System.out.println(obj_gestorDatos.listarDepartamentosPorImpacto());
-        System.out.println(obj_gestorDatos.MostrarValoracionPorProb());
+        System.out.println(obj_gestorDatos.MostrarEstadisticas());
 
         System.out.println('\n' + "-------------------------------------------");
 
@@ -70,6 +70,7 @@ public class ProyectoFinalProgIiApplication {
 
         System.out.println(obj_gestorDatos.analisisFrecuenciaPalabrasClave());
         System.out.println(obj_gestorDatos.IdentificarTerminosRecurrentes());
+        System.out.println(obj_gestorDatos.agruparProblematicasPorPalabrasClave());
 
         System.out.println('\n' + "-------------------------------------------" + '\n');
     }

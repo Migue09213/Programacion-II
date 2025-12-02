@@ -25,7 +25,7 @@ public class lstIndicador {
 
     //------------------------
 
-    private String indicadoresFileName = "C:\\Users\\danie\\IdeaProjects\\Proyecto final Prog II\\src\\main\\resources\\lista_indicadores.csv";
+    private String indicadoresFileName = "src/main/resources/lista_indicadores.csv";
 
     public void cargarIndicadores() throws IOException {
         String codigo, nombre, valor;

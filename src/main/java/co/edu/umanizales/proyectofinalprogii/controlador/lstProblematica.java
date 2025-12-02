@@ -27,7 +27,7 @@ public class lstProblematica {
 
     //---------------------
 
-    private String problematicasFileName = "C:\\Users\\danie\\IdeaProjects\\Proyecto final Prog II\\src\\main\\resources\\lista_problematicas.csv";
+    private String problematicasFileName = "src/main/resources/lista_problematicas.csv";
 
 
     private lstIndicador generarIndicador() throws IOException {

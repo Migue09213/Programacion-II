@@ -1,9 +1,6 @@
 package co.edu.umanizales.proyectofinalprogii.controlador;
 
 import co.edu.umanizales.proyectofinalprogii.ProyectoFinalProgIiApplication;
-
-import java.io.IOException;
-
 import static co.edu.umanizales.proyectofinalprogii.ProyectoFinalProgIiApplication.*;
 
 public class GestorDatos {
@@ -19,57 +16,72 @@ public class GestorDatos {
     public String MostrarDepConProb() {
         c_nodo_LD tempD;
         tempD = ProyectoFinalProgIiApplication.departamento.cab;
-        String departamentoMostrarProb = "";
+        StringBuilder departamentoMostrarProb;
+        departamentoMostrarProb = new StringBuilder();
+        departamentoMostrarProb.append("\n---DEPARTAMENTOS CON PROBLEMÁTICAS---");
+
         while (tempD != null) {
             c_nodo_Eval tempE;
             tempE = Evaluador.cab;
-            departamentoMostrarProb = departamentoMostrarProb + '\n' + "Departamento: " + tempD.dato.getNombre() + "" + '\n';
+            departamentoMostrarProb.append('\n').append("Departamento: ")
+                    .append(tempD.dato.getNombre()).append("").append('\n');
             while (tempE != null) {
                 if (tempE.dato.getDpto().getNombre().equalsIgnoreCase(tempD.dato.getNombre())) {
-                    departamentoMostrarProb = departamentoMostrarProb + '\n' + "Problematica: " + tempE.dato.getProblema() + '\n';
+                    departamentoMostrarProb.append('\n').append("Problematica: ")
+                            .append(tempE.dato.getProblema()).append('\n');
                 }
                 tempE = tempE.sig;
             }
             tempD = tempD.sig;
         }
-        return departamentoMostrarProb;
+        return departamentoMostrarProb.toString();
     }
 
     public String MostrarValoracionPorProb() {
         c_nodo_LP tempP;
         tempP = problematica.cab;
-        String valoracionPorProb = "";
+        StringBuilder valoracionPorProb;
+        valoracionPorProb = new StringBuilder();
+        valoracionPorProb.append("\n---VALORACIONES POR PROBLEMÁTICA---");
+
         int valorTotal = 0;
         while (tempP != null) {
             c_nodo_Eval tempE;
             tempE = Evaluador.cab;
-            valoracionPorProb = valoracionPorProb + '\n' + "Problemática: " + tempP.dato.getNombreProb() + "" + '\n';
+            valoracionPorProb.append('\n').append("Problemática: ")
+                    .append(tempP.dato.getNombreProb()).append('\n');
             try {
                 valorTotal = 0;
                 while (tempE != null) {
                     if (tempE.dato.getProblema().getNombreProb().equalsIgnoreCase(tempP.dato.getNombreProb())) {
-                        valoracionPorProb = valoracionPorProb + "Valor: " + tempE.dato.getValor_impacto() + "   " + "Departamento: " + tempE.dato.getDpto().getNombre() + '\n';
+                        valoracionPorProb.append("Valor: ").append(tempE.dato.getValor_impacto())
+                                .append("   ").append("Departamento: ")
+                                .append(tempE.dato.getDpto().getNombre()).append('\n');
                         valorTotal = valorTotal + tempE.dato.getValor_impacto();
                     }
                     tempE = tempE.sig;
                 }//fin while
             } catch (NullPointerException e) {
             }
-            valoracionPorProb = valoracionPorProb + '\n' + "Valor Total: " + valorTotal + '\n' + '\n';
+            valoracionPorProb.append('\n').append("Valor Total: ").append(valorTotal).append("\n\n");
             tempP = tempP.sig;
         }
-        return valoracionPorProb;
+        return valoracionPorProb.toString();
     }
 
     public String ImpactoTotalDepartamento() {
         c_nodo_LD tempD;
         tempD = ProyectoFinalProgIiApplication.departamento.cab;
-        String impactoTotalDepartamento = "";
+        StringBuilder impactoTotalDepartamento;
+        impactoTotalDepartamento = new StringBuilder();
+        impactoTotalDepartamento.append("\n ---IMPACTO TOTAL POR DEPARTAMENTO---");
 
         while (tempD != null) {
             c_nodo_Eval tempE;
             tempE = Evaluador.cab;
-            impactoTotalDepartamento = impactoTotalDepartamento + '\n' + "Departamento: " + tempD.dato.getNombre() + '\n';
+            impactoTotalDepartamento.append('\n')
+                    .append("Departamento: ").append(tempD.dato.getNombre())
+                    .append('\n');
             try {
 
                 int valorImpactoTotalDepartamento;
@@ -80,7 +92,8 @@ public class GestorDatos {
 
                         valorImpactoTotalDepartamento = valorImpactoTotalDepartamento + tempE.dato.valor_impacto;
 
-                        impactoTotalDepartamento = impactoTotalDepartamento + "Valor Impacto Total: " + valorImpactoTotalDepartamento + '\n';
+                        impactoTotalDepartamento.append("Valor Impacto Total: ")
+                                .append(valorImpactoTotalDepartamento).append('\n');
                     }
                     tempE = tempE.sig;
                 } // fin While
@@ -88,7 +101,7 @@ public class GestorDatos {
             }
             tempD = tempD.sig;
         }
-        return impactoTotalDepartamento;
+        return impactoTotalDepartamento.toString();
     }
 
     //-------------------------
@@ -114,7 +127,10 @@ public class GestorDatos {
         }
 
         // Mostrar el departamento con mayor impacto
-        MayorValorAcumuladoProblema = '\n' + "=== DEPARTAMENTO CON MAYOR IMPACTO ===" + '\n' + "Departamento: " + nodoMayorImpacto.dato.getDpto().getNombre() + '\n' + "Valor Impacto: " + nodoMayorImpacto.dato.valor_impacto + '\n' + "Problemática: " + nodoMayorImpacto.dato.getProblema().getNombreProb() + '\n';
+        MayorValorAcumuladoProblema = '\n' + "=== DEPARTAMENTO CON MAYOR IMPACTO ==="
+                + '\n' + "Departamento: " + nodoMayorImpacto.dato.getDpto().getNombre()
+                + '\n' + "Valor Impacto: " + nodoMayorImpacto.dato.valor_impacto
+                + '\n' + "Problemática: " + nodoMayorImpacto.dato.getProblema().getNombreProb() + '\n';
 
         return MayorValorAcumuladoProblema;
     }
@@ -170,7 +186,7 @@ public class GestorDatos {
         // Mostrar TODOS ordenados
         String listarDepartamentosPorImpacto = '\n' + "=== DEPARTAMENTOS AFECTADOS (ordenados por impacto) ===" + '\n';
         for (int i = 0; i < contador; i++) {
-            listarDepartamentosPorImpacto = listarDepartamentosPorImpacto + (i + 1) + ". " +
+            listarDepartamentosPorImpacto = listarDepartamentosPorImpacto + '\n' + (i + 1) + ". " +
                     departamentos[i] + " | Impacto: " + impactos[i] +
                     '\n' + "Problemas: " + problemas[i] + '\n';
         }
@@ -188,8 +204,8 @@ public class GestorDatos {
 
         int suma = 0;
         int contador = 0;
-        int maximo = Integer.MAX_VALUE;
-        int minimo = Integer.MIN_VALUE;
+        int maximo = 0;
+        int minimo = 0;
 
         while (tempE != null) {
             int valorImpacto = tempE.dato.valor_impacto;
@@ -223,7 +239,8 @@ public class GestorDatos {
     public String identificarIndicadoresComunes() {
 
         StringBuilder resultado;
-        resultado = new StringBuilder(); //se usa un StringBuilder para hacer más eficiente la creación de cadenas de texto
+        resultado = new StringBuilder();
+        resultado.append("\n ---INDICADORES COMUNES--- \n"); //se usa un StringBuilder para hacer más eficiente la creación de cadenas de texto
 
         c_nodo_LI tempI;
         tempI = indicadores.cab;
@@ -257,7 +274,7 @@ public class GestorDatos {
                 resultado.append(" no aparece").append('\n');
 
             } else if (aparicionesTotales == 1) {
-                        resultado.append("\naparece 1 vez, por lo tanto NO es común: \n");
+                resultado.append("\naparece 1 vez, por lo tanto NO es común: \n");
 
             } else if (aparicionesTotales > 1) {
                 resultado.append("\naparece ").append(aparicionesTotales)
@@ -265,7 +282,8 @@ public class GestorDatos {
                         .append(problematicasEncontradas);
             } //fin del reporte
 
-            tempI = tempI.sig; //aqui continúa al siguiente indicador
+            tempI = tempI.sig; //aqui continúa al siguiente indicador0
+
         }
         return resultado.toString();
     }
@@ -350,7 +368,7 @@ public class GestorDatos {
 
         // Generar reporte
         for (int i = 0; i < totalPalabras; i++) {
-            analisisFrecuenciaPalabrasClave = analisisFrecuenciaPalabrasClave +
+            analisisFrecuenciaPalabrasClave = analisisFrecuenciaPalabrasClave + '\n' +
                     (i + 1) + ". " + palabras[i] +
                     " - Frecuencia: " + frecuencias[i] + " veces" + '\n';
         }
@@ -383,7 +401,7 @@ public class GestorDatos {
             if (palabrasClave != null && !palabrasClave.isEmpty()) {
                 String[] palabrasSeparadas = palabrasClave.split("[,;\\s]+");
 
-                for(int i = 0; i < palabrasSeparadas.length; i++) {
+                for (int i = 0; i < palabrasSeparadas.length; i++) {
                     String palabra = palabrasSeparadas[i].trim().toLowerCase();
 
                     if (!palabra.isEmpty()) {
@@ -410,13 +428,93 @@ public class GestorDatos {
         int limite = totalPalabras < 30 ? 30 : totalPalabras;
         for (int i = 0; i < limite; i++) {
             if (frecuencias[i] > 1) {
-                IdentificarTerminosRecurrentes = IdentificarTerminosRecurrentes +
+                IdentificarTerminosRecurrentes = IdentificarTerminosRecurrentes + '\n' +
                         (i + 1) + ". " + palabras[i] +
-                        "Aparece" + frecuencias[i] + "Veces" + '\n';
+                        " Aparece " + frecuencias[i] + " Veces" + '\n';
             }
         }
 
         return IdentificarTerminosRecurrentes;
+    }
+
+    public String agruparProblematicasPorPalabrasClave() {
+        if (ProyectoFinalProgIiApplication.problematica == null || ProyectoFinalProgIiApplication.problematica.cab == null) {
+            return "No hay problematicas registradas\n";
+        }
+
+        String agruparProblematicasPorPalabrasClave = '\n' + "=== PROBLEMATICAS AGRUPADAS POR PALABRAS CLAVE ===" + '\n';
+
+        // Primero, obtener todas las palabras clave únicas
+        c_nodo_LP tempP = ProyectoFinalProgIiApplication.problematica.cab;
+        String[] palabrasUnicas = new String[200];  // AUMENTADO DE 30 A 200
+        int totalPalabrasUnicas = 0;
+
+        // Extraer todas las palabras clave únicas
+        while (tempP != null) {
+            String palabrasClave = tempP.dato.palabrasClave;
+
+            if (palabrasClave != null && !palabrasClave.isEmpty()) {
+                String[] palabrasSeparadas = palabrasClave.split("[,;\\s]+");
+
+                for (int i = 0; i < palabrasSeparadas.length; i++) {
+                    String palabra = palabrasSeparadas[i].trim().toLowerCase();
+
+                    if (!palabra.isEmpty()) {
+                        // Verificar si la palabra ya existe
+                        boolean existe = false;
+                        for (int j = 0; j < totalPalabrasUnicas; j++) {
+                            if (palabrasUnicas[j].equals(palabra)) {
+                                existe = true;
+                                break;
+                            }
+                        }
+
+                        // Agregar solo si no existe y hay espacio
+                        if (!existe && totalPalabrasUnicas < 200) {  // VALIDACION AGREGADA
+                            palabrasUnicas[totalPalabrasUnicas] = palabra;
+                            totalPalabrasUnicas++;
+                        }
+                    }
+                }
+            }
+
+            tempP = tempP.sig;
+        }
+
+        // Ahora agrupar problemáticas por cada palabra clave
+        for (int i = 0; i < totalPalabrasUnicas; i++) {
+            String palabraClave = palabrasUnicas[i];
+            int contadorProblematicas = 0;
+            String listaProblematicas = "";
+
+            // Buscar problemáticas que contengan esta palabra clave
+            tempP = ProyectoFinalProgIiApplication.problematica.cab;
+            while (tempP != null) {
+                String palabrasClave = tempP.dato.palabrasClave;
+
+                if (palabrasClave != null && !palabrasClave.isEmpty()) {
+                    String palabrasMinusculas = palabrasClave.toLowerCase();
+
+                    if (palabrasMinusculas.contains(palabraClave)) {
+                        contadorProblematicas++;
+                        listaProblematicas = listaProblematicas + "   - " +
+                                tempP.dato.getNombreProb() + '\n';
+                    }
+                }
+
+                tempP = tempP.sig;
+            }
+
+            // Solo mostrar si hay más de una problemática con esa palabra
+            if (contadorProblematicas > 1) {
+                agruparProblematicasPorPalabrasClave = agruparProblematicasPorPalabrasClave +
+                        '\n' + "Palabra clave: " + palabraClave +
+                        " (" + contadorProblematicas + " problematicas)" + '\n' +
+                        listaProblematicas;
+            }
+        }
+
+        return agruparProblematicasPorPalabrasClave;
     }
 
     //-------------------------

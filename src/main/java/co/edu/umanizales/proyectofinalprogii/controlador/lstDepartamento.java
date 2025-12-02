@@ -25,7 +25,7 @@ public class lstDepartamento {
 
     //------------------------
 
-    private String departamentosFileName = "C:\\Users\\danie\\IdeaProjects\\Proyecto final Prog II\\src\\main\\resources\\codigos_departamentos.csv";
+    private String departamentosFileName = "src/main/resources/codigos_departamentos.csv";
 
     public void cargarDepartamentos() throws IOException {
         String codigo, nombre;
