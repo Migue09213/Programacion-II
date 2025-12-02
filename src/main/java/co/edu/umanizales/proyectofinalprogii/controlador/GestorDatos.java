@@ -24,7 +24,7 @@ public class GestorDatos {
             c_nodo_Eval tempE;
             tempE = Evaluador.cab;
             departamentoMostrarProb.append('\n').append("Departamento: ")
-                    .append(tempD.dato.getNombre()).append("").append('\n');
+                    .append(tempD.dato.getNombre()).append('"').append('\n');
             while (tempE != null) {
                 if (tempE.dato.getDpto().getNombre().equalsIgnoreCase(tempD.dato.getNombre())) {
                     departamentoMostrarProb.append('\n').append("Problematica: ")
@@ -49,7 +49,7 @@ public class GestorDatos {
             c_nodo_Eval tempE;
             tempE = Evaluador.cab;
             valoracionPorProb.append('\n').append("Problemática: ")
-                    .append(tempP.dato.getNombreProb()).append('\n');
+                    .append(tempP.dato.getNombreProb()).append('"').append('\n');
             try {
                 valorTotal = 0;
                 while (tempE != null) {
@@ -81,7 +81,7 @@ public class GestorDatos {
             tempE = Evaluador.cab;
             impactoTotalDepartamento.append('\n')
                     .append("Departamento: ").append(tempD.dato.getNombre())
-                    .append('\n');
+                    .append('"').append('\n');
             try {
 
                 int valorImpactoTotalDepartamento;
