@@ -95,7 +95,7 @@ public class lstIndicador {
 
             while (temp != null) { //iniciar el ciclo de recorrido
                 resultado_cadena = resultado_cadena + temp.dato + "\n";
-                temp = temp.getSig();
+                temp = temp.sig;
             }
             return resultado_cadena;
         }//fin else

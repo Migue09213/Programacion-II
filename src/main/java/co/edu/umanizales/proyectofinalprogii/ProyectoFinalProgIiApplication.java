@@ -58,7 +58,7 @@ public class ProyectoFinalProgIiApplication {
 
         //--------- * REPORTES INDICADORES COMUNES * ----------//
 
-        System.out.println("//*REPORTES INDICADORES COMUNES*//");
+        System.out.println("//-*-REPORTES INDICADORES COMUNES-*-//");
 
         System.out.println(obj_gestorDatos.identificarIndicadoresComunes());
 
@@ -66,9 +66,10 @@ public class ProyectoFinalProgIiApplication {
 
         //--------- * REPORTES PALABRAS CLAVE * -------------//
 
-        System.out.println("//*REPORTES PALABRAS CLAVE*//");
+        System.out.println("//-*-REPORTES PALABRAS CLAVE-*-//");
 
-        System.out.println(obj_gestorDatos.AnalisisFrecuenciaPalabrasClave());
+        System.out.println(obj_gestorDatos.analisisFrecuenciaPalabrasClave());
+        System.out.println(obj_gestorDatos.IdentificarTerminosRecurrentes());
 
         System.out.println('\n' + "-------------------------------------------" + '\n');
     }

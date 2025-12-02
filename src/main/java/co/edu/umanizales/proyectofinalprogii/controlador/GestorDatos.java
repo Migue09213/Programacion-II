@@ -121,7 +121,7 @@ public class GestorDatos {
 
     public String listarDepartamentosPorImpacto() {
         if (ProyectoFinalProgIiApplication.Evaluador == null || ProyectoFinalProgIiApplication.Evaluador.cab == null) {
-            return "No hay evaluaciones registradas\n";
+            return "No hay departamentos registradas\n";
         }
 
         // Contar elementos
@@ -241,31 +241,31 @@ public class GestorDatos {
 
             while (tempP != null) {
 
-                if (tempP.dato.indicador.toString()
-                        .equalsIgnoreCase(tempI.dato.toString())) {
+                if (tempP.dato.toString()
+                        .contains(tempI.dato.id_indicador)) {
 
                     aparicionesTotales++;
-                    problematicasEncontradas = problematicasEncontradas + "*" + tempP.dato.nombreProb + '\n';
+                    problematicasEncontradas = problematicasEncontradas + "   *" + tempP.dato.nombreProb + '\n';
                 }
                 tempP = tempP.sig;
             }
 
-            resultado.append('\n').append("\nEl Indicador ").append(tempI.dato.nombre);
+            //aqui genera el reporte
+            resultado.append("\nEl Indicador {").append(tempI.dato.nombre).append("} ");
 
             if (aparicionesTotales == 0) {
                 resultado.append(" no aparece").append('\n');
 
             } else if (aparicionesTotales == 1) {
-                        resultado.append(" aparece 1 vez en la problemática: ")
-                        .append(problematicasEncontradas).append('\n');
+                        resultado.append("\naparece 1 vez, por lo tanto NO es común: \n");
 
             } else if (aparicionesTotales > 1) {
-                resultado.append(" aparece ").append(aparicionesTotales)
-                        .append(" veces en la problemática: ")
-                        .append(problematicasEncontradas).append('\n');
-            }
+                resultado.append("\naparece ").append(aparicionesTotales)
+                        .append(" veces en la problemática: \n")
+                        .append(problematicasEncontradas);
+            } //fin del reporte
 
-            tempI = tempI.sig;
+            tempI = tempI.sig; //aqui continúa al siguiente indicador
         }
         return resultado.toString();
     }
@@ -273,14 +273,99 @@ public class GestorDatos {
     //-------------------------
     //Reportes de Palabras Clave:
 
-    public String AnalisisFrecuenciaPalabrasClave() {
-        if (problematica == null || problematica.cab == null) {
-            return "No hay problematica registrada\n";
+    public String analisisFrecuenciaPalabrasClave() {
+        if (ProyectoFinalProgIiApplication.problematica == null || ProyectoFinalProgIiApplication.problematica.cab == null) {
+            return "No hay palabras registradas\n";
         }
 
         c_nodo_LP tempP;
-        tempP = problematica.cab;
-        String AnalisisFrecuenciaPalabrasClave = '\n' + "=== Analisis de frecuencia de palabras claves ===" + '\n';
+        tempP = ProyectoFinalProgIiApplication.problematica.cab;
+        String analisisFrecuenciaPalabrasClave = '\n' + "=== ANALISIS DE FRECUENCIA DE PALABRAS CLAVE ===" + '\n';
+
+        // Contar total de problemáticas para el análisis
+        int totalProblematicas = 0;
+        c_nodo_LP tempContador = tempP;
+        while (tempContador != null) {
+            totalProblematicas++;
+            tempContador = tempContador.sig;
+        }
+
+        // Crear arreglo temporal para almacenar palabras y sus frecuencias
+        String[] palabras = new String[totalProblematicas * 10]; // Estimación de palabras
+        int[] frecuencias = new int[totalProblematicas * 10];
+        int totalPalabras = 0;
+
+        // Recorrer todas las problemáticas
+        while (tempP != null) {
+            String palabrasClave = tempP.dato.palabrasClave;
+
+            if (palabrasClave != null && !palabrasClave.isEmpty()) {
+                // Separar palabras por coma, punto y coma, o espacio
+                String[] palabrasSeparadas = palabrasClave.split("[,;\\s]+");
+
+                // Contar cada palabra
+                for (int i = 0; i < palabrasSeparadas.length; i++) {
+                    String palabra = palabrasSeparadas[i].trim().toLowerCase();
+
+                    if (!palabra.isEmpty()) {
+                        // Buscar si la palabra ya existe
+                        boolean encontrada = false;
+                        for (int j = 0; j < totalPalabras; j++) {
+                            if (palabras[j].equals(palabra)) {
+                                frecuencias[j]++;
+                                encontrada = true;
+                                break;
+                            }
+                        }
+
+                        // Si no existe, agregarla
+                        if (!encontrada) {
+                            palabras[totalPalabras] = palabra;
+                            frecuencias[totalPalabras] = 1;
+                            totalPalabras++;
+                        }
+                    }
+                }
+            }
+
+            tempP = tempP.sig;
+        }
+
+        // Ordenar por frecuencia (de mayor a menor)
+        for (int i = 0; i < totalPalabras - 1; i++) {
+            for (int j = 0; j < totalPalabras - i - 1; j++) {
+                if (frecuencias[j] < frecuencias[j + 1]) {
+                    // Intercambiar frecuencias
+                    int tempFreq = frecuencias[j];
+                    frecuencias[j] = frecuencias[j + 1];
+                    frecuencias[j + 1] = tempFreq;
+
+                    // Intercambiar palabras
+                    String tempPalabra = palabras[j];
+                    palabras[j] = palabras[j + 1];
+                    palabras[j + 1] = tempPalabra;
+                }
+            }
+        }
+
+        // Generar reporte
+        for (int i = 0; i < totalPalabras; i++) {
+            analisisFrecuenciaPalabrasClave = analisisFrecuenciaPalabrasClave +
+                    (i + 1) + ". " + palabras[i] +
+                    " - Frecuencia: " + frecuencias[i] + " veces" + '\n';
+        }
+
+        return analisisFrecuenciaPalabrasClave;
+    }
+
+    public String IdentificarTerminosRecurrentes() {
+        if (ProyectoFinalProgIiApplication.problematica == null || ProyectoFinalProgIiApplication.problematica.cab == null) {
+            return "No hay terminos registrados\n";
+        }
+
+        c_nodo_LP tempP;
+        tempP = ProyectoFinalProgIiApplication.problematica.cab;
+        String IdentificarTerminosRecurrentes = '\n' + "=== Terminos Recurrentes ===" + '\n';
 
         int totalProblematicas = 0;
         c_nodo_LP tempContador = tempP;
@@ -289,33 +374,31 @@ public class GestorDatos {
             tempContador = tempContador.sig;
         }
 
-        String[] Palabras = new String[totalProblematicas * 30];
-        int[] frecuencia = new int[totalProblematicas * 30];
+        String[] palabras = new String[totalProblematicas * 30];
+        int[] frecuencias = new int[totalProblematicas * 30];
         int totalPalabras = 0;
 
         while (tempP != null) {
             String palabrasClave = tempP.dato.palabrasClave;
+            if (palabrasClave != null && !palabrasClave.isEmpty()) {
+                String[] palabrasSeparadas = palabrasClave.split("[,;\\s]+");
 
-            if (palabrasClave != null && !palabrasClave.isEmpty()) { //el isEmpty revisa si dentro del String hay vacio
-                String[] palabrasSeparadas = palabrasClave.split("[,;\\s]"); //.split funciona para separar puntos, comas, etc.
+                for(int i = 0; i < palabrasSeparadas.length; i++) {
+                    String palabra = palabrasSeparadas[i].trim().toLowerCase();
 
-                for (int i = 0; i < palabrasSeparadas.length; i++) {
-                    String palabra = palabrasSeparadas[i].trim().toLowerCase(); //se hace esto para considerar que las palabras sean iguales al encontrarlas
-
-                    if (!palabrasClave.isEmpty()) {
-
+                    if (!palabra.isEmpty()) {
                         boolean encontrada = false;
                         for (int j = 0; j < totalPalabras; j++) {
-                            if (palabrasSeparadas[j].equals(palabra)) {
-                                frecuencia[j]++;
+                            if (palabras[j].equals(palabra)) {
+                                frecuencias[j]++;
                                 encontrada = true;
                                 break;
                             }
                         }
 
                         if (!encontrada) {
-                            palabrasSeparadas[totalPalabras] = palabra;
-                            frecuencia[totalPalabras] = 1;
+                            palabras[totalPalabras] = palabra;
+                            frecuencias[totalPalabras] = 1;
                             totalPalabras++;
                         }
                     }
@@ -324,7 +407,16 @@ public class GestorDatos {
             tempP = tempP.sig;
         }
 
-        return AnalisisFrecuenciaPalabrasClave;
+        int limite = totalPalabras < 30 ? 30 : totalPalabras;
+        for (int i = 0; i < limite; i++) {
+            if (frecuencias[i] > 1) {
+                IdentificarTerminosRecurrentes = IdentificarTerminosRecurrentes +
+                        (i + 1) + ". " + palabras[i] +
+                        "Aparece" + frecuencias[i] + "Veces" + '\n';
+            }
+        }
+
+        return IdentificarTerminosRecurrentes;
     }
 
     //-------------------------
